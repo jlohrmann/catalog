@@ -1,0 +1,61 @@
+<html>
+<head>
+   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css')  }}"
+</head>
+<body>
+
+<div class='flash'>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+
+<ul>
+{% for message in messages %}
+<li><strong>{{ message }} </strong></li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+</div>
+
+<div class='pane' style="padding: 20px;">
+   <div class='header'>
+      <h1>All Restaurants</h1>
+   </div>
+</div>
+
+<a href='{{ url_for('gdisconnect') }}'><button>Logout</button></a>
+<div style="width: 100%; padding-top: 100px;">
+
+   <a href='{{ url_for('newRestaurant') }}'><button>Add New Restaurant</button></a>
+
+{% for i in restaurants %}
+
+   <div style="padding-top: 20px;" >
+
+   <div style="border-bottom: solid black 1px; padding: 10px; width: 50%">
+      <p>{{i.name}}</p>
+
+     <div style="padding-right: 4px; float: left">
+         <p> <a href='{{ url_for('showMenu',restaurant_id=i.id) }}'><button>Show Menu</button></a> </p>
+     </div>
+
+     <div style="padding-right: 4px; float: left">
+        <p> <a href='{{ url_for('editRestaurant',restaurant_id=i.id) }}'><button>Edit Restaurant</button></a> </p>
+     </div>
+
+     <div style="padding-right: 4px; float: left">
+       <p> <a href='{{ url_for('deleteRestaurant',restaurant_id=i.id) }}'><button>Delete Restaurant</button></a> </p>
+     </div>
+
+     <br/>
+     <br/>
+   </div>
+
+</div>
+
+
+{% endfor %}
+</div>
+</body>
+
+</html>
